@@ -5,9 +5,10 @@
 #include "consulta.c"
 #include "exame.c"
 #include "buscaSequencial.c"
+#include "buscaBinaria.c"
 
 
-void salvarLog(const char *entidade, int comparacoes, double tempo) {
+void salvarLog(const char *entidade, int comparacoes, double tempo, int base) {
     FILE *logFile = fopen("log.txt", "a");
     if (!logFile) {
         perror("Erro ao abrir arquivo de log");
@@ -16,7 +17,8 @@ void salvarLog(const char *entidade, int comparacoes, double tempo) {
 
     fprintf(logFile, "Entidade: %s\n", entidade);
     fprintf(logFile, "Número de comparações: %d\n", comparacoes);
-    fprintf(logFile, "Tempo de execução: %lf segundos\n\n", tempo);
+    fprintf(logFile, "Tempo de execução: %lf segundos\n", tempo);
+    fprintf(logFile, "Tamanho da base: %d\n\n", base);
 
     fclose(logFile);
 }
@@ -59,7 +61,7 @@ int main() {
     //Busca Sequencial Medico ========================================
 
     int cod_busca;
-    printf("Digite o CRM: ");
+    printf("\nDigite o CRM: ");
     scanf("%d", &cod_busca);
 
     int comparacoes;
@@ -81,7 +83,7 @@ int main() {
     printf("Número de comparações na busca sequencial: %d\n", comparacoes);
     printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
-    salvarLog("Médico", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+    salvarLog("Médico (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Busca Sequencial Paciente ========================================
 
@@ -104,7 +106,7 @@ int main() {
     printf("Número de comparações na busca sequencial: %d\n", comparacoes);
     printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
-    salvarLog("Paciente", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+    salvarLog("Paciente (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Busca Sequencial Consulta ========================================
 
@@ -127,7 +129,7 @@ int main() {
     printf("Número de comparações na busca sequencial: %d\n", comparacoes);
     printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
-    salvarLog("Consulta", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+    salvarLog("Consulta (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Busca Sequencial Exame ========================================
 
@@ -150,7 +152,7 @@ int main() {
     printf("Número de comparações na busca sequencial: %d\n", comparacoes);
     printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
-    salvarLog("Exame", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+    salvarLog("Exame (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Criando Bases Ordenadas ========================================
 
@@ -165,6 +167,95 @@ int main() {
     // imprimirBasePaciente(pacienteFile);
     // imprimirBaseConsulta(consultaFile);
     // imprimirBaseExame(exameFile);
+
+    //Busca Binária Medico ========================================
+
+    printf("\nDigite o CRM: ");
+    scanf("%d", &cod_busca);
+
+    inicio = clock();
+    TMedico *medEncontradoBin = buscarBinariaMedico(medicoFile, cod_busca, &comparacoes);
+    fim = clock();
+
+    if (medEncontradoBin) {
+        printf("Médico encontrado:\n\n");
+        imprimeMedico(medEncontradoBin);
+        free(medEncontradoBin);
+    } else {
+        printf("Médico não encontrado.\n\n");
+    }
+
+    printf("Número de comparações na busca binaria: %d\n", comparacoes);
+    printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+
+    salvarLog("Médico (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
+
+    //Busca Binária Paciente ========================================
+
+    printf("Digite o ID: ");
+    scanf("%d", &cod_busca);
+
+    inicio = clock();
+    TMedico *pacEncontradoBin = buscarBinariaPaciente(medicoFile, cod_busca, &comparacoes);
+    fim = clock();
+
+    if (pacEncontradoBin) {
+        printf("Paciente encontrado:\n\n");
+        imprimePaciente(pacEncontradoBin);
+        free(pacEncontradoBin);
+    } else {
+        printf("Paciente não encontrado.\n\n");
+    }
+
+    printf("Número de comparações na busca binaria: %d\n", comparacoes);
+    printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+
+    salvarLog("Paciente (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
+
+    //Busca Binária Consulta ========================================
+
+    printf("Digite o ID: ");
+    scanf("%d", &cod_busca);
+
+    inicio = clock();
+    TMedico *consEncontradoBin = buscarBinariaConsulta(medicoFile, cod_busca, &comparacoes);
+    fim = clock();
+
+    if (consEncontradoBin) {
+        printf("Consulta encontrado:\n\n");
+        imprimeConsulta(consEncontradoBin);
+        free(consEncontradoBin);
+    } else {
+        printf("Consulta não encontrado.\n\n");
+    }
+
+    printf("Número de comparações na busca binaria: %d\n", comparacoes);
+    printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+
+    salvarLog("Consulta (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
+
+    //Busca Binária Exame ========================================
+
+    printf("Digite o ID: ");
+    scanf("%d", &cod_busca);
+
+    inicio = clock();
+    TMedico *examEncontradoBin = buscarBinariaExame(medicoFile, cod_busca, &comparacoes);
+    fim = clock();
+
+    if (examEncontradoBin) {
+        printf("Exame encontrado:\n\n");
+        imprimeExame(examEncontradoBin);
+        free(examEncontradoBin);
+    } else {
+        printf("Exame não encontrado.\n\n");
+    }
+
+    printf("Número de comparações na busca binaria: %d\n", comparacoes);
+    printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+
+    salvarLog("Exame (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
+
 
     //Fechando Arquivos ========================================
 

@@ -88,7 +88,6 @@ void shuffle(int *vet, int MAX, int MIN) {
 }
 
 void criarBaseMedicoOrdenada(FILE *out, int tam) {
-    int vet[tam];
     TMedico *med;
 
     printf("\nGerando a base de dados de Médicos Ordenada...\n");

@@ -78,7 +78,6 @@ void imprimirBasePaciente(FILE *out) {
 }
 
 void criarBasePacienteOrdenada(FILE *out, int tam) {
-    int vet[tam];
     TPaciente *pac;
 
     printf("\nGerando a base de dados de Pacientes Ordenada...\n");

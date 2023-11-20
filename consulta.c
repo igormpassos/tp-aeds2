@@ -78,7 +78,6 @@ void imprimirBaseConsulta(FILE *out) {
 }
 
 void criarBaseConsultaOrdenada(FILE *out, int tam) {
-    int vet[tam];
     TConsulta *cons;
 
     printf("\nGerando a base de dados de Consultas Ordenada...\n");

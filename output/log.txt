@@ -62,3 +62,73 @@ Entidade: Exame
 Número de comparações: 9
 Tempo de execução: 0.000043 segundos
 
+Entidade: Médico (Busca Sequencial)
+Número de comparações: 9
+Tempo de execução: 0.000096 segundos
+
+Tamanho da base: 10
+
+Entidade: Paciente (Busca Sequencial)
+Número de comparações: 4
+Tempo de execução: 0.000066 segundos
+
+Tamanho da base: 10
+
+Entidade: Consulta (Busca Sequencial)
+Número de comparações: 9
+Tempo de execução: 0.000055 segundos
+
+Tamanho da base: 10
+
+Entidade: Exame (Busca Sequencial)
+Número de comparações: 9
+Tempo de execução: 0.000052 segundos
+
+Tamanho da base: 10
+
+Entidade: Médico (Busca Binária)
+Número de comparações: 5
+Tempo de execução: 0.000185 segundos
+
+Tamanho da base: 10
+
+Entidade: Médico (Busca Sequencial)
+Número de comparações: 9
+Tempo de execução: 0.000090 segundos
+Tamanho da base: 10
+
+Entidade: Paciente (Busca Sequencial)
+Número de comparações: 8
+Tempo de execução: 0.000084 segundos
+Tamanho da base: 10
+
+Entidade: Consulta (Busca Sequencial)
+Número de comparações: 9
+Tempo de execução: 0.000032 segundos
+Tamanho da base: 10
+
+Entidade: Exame (Busca Sequencial)
+Número de comparações: 9
+Tempo de execução: 0.000069 segundos
+Tamanho da base: 10
+
+Entidade: Médico (Busca Binária)
+Número de comparações: 5
+Tempo de execução: 0.000104 segundos
+Tamanho da base: 10
+
+Entidade: Paciente (Busca Binária)
+Número de comparações: 4
+Tempo de execução: 0.000061 segundos
+Tamanho da base: 10
+
+Entidade: Consulta (Busca Binária)
+Número de comparações: 3
+Tempo de execução: 0.000052 segundos
+Tamanho da base: 10
+
+Entidade: Exame (Busca Binária)
+Número de comparações: 3
+Tempo de execução: 0.000099 segundos
+Tamanho da base: 10
+

@@ -78,7 +78,6 @@ void imprimirBaseExame(FILE *out) {
 }
 
 void criarBaseExameOrdenada(FILE *out, int tam) {
-    int vet[tam];
     TExame *exam;
 
     printf("\nGerando a base de dados de Exames Ordenada...\n");
