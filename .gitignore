@@ -1,0 +1,5 @@
+*.dat
+*.txt
+*.out
+.vscode/
+main.dSYM/
