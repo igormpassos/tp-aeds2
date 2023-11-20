@@ -16,9 +16,9 @@ void salvarLog(const char *entidade, int comparacoes, double tempo, int base) {
     }
 
     fprintf(logFile, "Entidade: %s\n", entidade);
-    fprintf(logFile, "Número de comparações: %d\n", comparacoes);
-    fprintf(logFile, "Tempo de execução: %lf segundos\n", tempo);
     fprintf(logFile, "Tamanho da base: %d\n\n", base);
+    fprintf(logFile, "Numero de comparações: %d\n", comparacoes);
+    fprintf(logFile, "Tempo de execucao: %lf segundos\n\n", tempo);
 
     fclose(logFile);
 }
@@ -73,15 +73,15 @@ int main() {
     fim = clock();
 
     if (medEncontrado) {
-        printf("Médico encontrado:\n\n");
+        printf("Medico encontrado:\n\n");
         imprimeMedico(medEncontrado);
         free(medEncontrado);
     } else {
-        printf("Médico não encontrado.\n\n");
+        printf("Medico não encontrado.\n\n");
     }
 
-    printf("Número de comparações na busca sequencial: %d\n", comparacoes);
-    printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+    printf("Numero de comparações na busca sequencial: %d\n", comparacoes);
+    printf("Tempo de execucao: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Médico (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
@@ -103,8 +103,8 @@ int main() {
         printf("Paciente não encontrado.\n\n");
     }
 
-    printf("Número de comparações na busca sequencial: %d\n", comparacoes);
-    printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+    printf("Numero de comparações na busca sequencial: %d\n", comparacoes);
+    printf("Tempo de execucao: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Paciente (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
@@ -126,8 +126,8 @@ int main() {
         printf("Consulta não encontrado.\n\n");
     }
 
-    printf("Número de comparações na busca sequencial: %d\n", comparacoes);
-    printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+    printf("Numero de comparações na busca sequencial: %d\n", comparacoes);
+    printf("Tempo de execucao: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Consulta (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
@@ -149,8 +149,8 @@ int main() {
         printf("Exame não encontrado.\n\n");
     }
 
-    printf("Número de comparações na busca sequencial: %d\n", comparacoes);
-    printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
+    printf("Numero de comparações na busca sequencial: %d\n", comparacoes);
+    printf("Tempo de execucao: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Exame (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
