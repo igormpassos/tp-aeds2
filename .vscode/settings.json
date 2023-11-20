@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "manipulaarquivo.h": "c",
+        "__locale": "c",
+        "ios": "c"
+    }
+}
