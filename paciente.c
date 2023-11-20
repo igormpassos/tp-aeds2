@@ -76,3 +76,16 @@ void imprimirBasePaciente(FILE *out) {
 
     free(pac);
 }
+
+void criarBasePacienteOrdenada(FILE *out, int tam) {
+    int vet[tam];
+    TPaciente *pac;
+
+    printf("\nGerando a base de dados de Pacientes Ordenada...\n");
+
+    for (int i = 0; i < tam; i++) {
+        pac = paciente(i, "Paciente", "000.000.000-00", "01/01/1980", "Endereço do Paciente");
+        salvaPaciente(pac, out);
+        free(pac);
+    }
+}

@@ -21,4 +21,6 @@ void criarBasePaciente(FILE *out, int tam);
 
 void imprimirBasePaciente(FILE *out);
 
+void criarBasePacienteOrdenada(FILE *out, int tam);
+
 #endif

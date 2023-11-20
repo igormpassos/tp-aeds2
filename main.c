@@ -50,10 +50,10 @@ int main() {
 
     //Imprimindo Bases ========================================
 
-    imprimirBaseMedico(medicoFile);
-    imprimirBasePaciente(pacienteFile);
-    imprimirBaseConsulta(consultaFile);
-    imprimirBaseExame(exameFile);
+    // imprimirBaseMedico(medicoFile);
+    // imprimirBasePaciente(pacienteFile);
+    // imprimirBaseConsulta(consultaFile);
+    // imprimirBaseExame(exameFile);
 
 
     //Busca Sequencial Medico ========================================
@@ -152,6 +152,21 @@ int main() {
 
     salvarLog("Exame", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
+    //Criando Bases Ordenadas ========================================
+
+    criarBaseMedicoOrdenada(medicoFile, tamBase);
+    criarBasePacienteOrdenada(pacienteFile, tamBase);
+    criarBaseConsultaOrdenada(consultaFile, tamBase);
+    criarBasePacienteOrdenada(exameFile, tamBase);
+
+    //Imprimindo Bases Ordenadas ========================================
+
+    // imprimirBaseMedico(medicoFile);
+    // imprimirBasePaciente(pacienteFile);
+    // imprimirBaseConsulta(consultaFile);
+    // imprimirBaseExame(exameFile);
+
+    //Fechando Arquivos ========================================
 
     fclose(medicoFile);
     fclose(pacienteFile);

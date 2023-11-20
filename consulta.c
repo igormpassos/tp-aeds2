@@ -76,3 +76,16 @@ void imprimirBaseConsulta(FILE *out) {
 
     free(cons);
 }
+
+void criarBaseConsultaOrdenada(FILE *out, int tam) {
+    int vet[tam];
+    TConsulta *cons;
+
+    printf("\nGerando a base de dados de Consultas Ordenada...\n");
+
+    for (int i = 0; i < tam; i++) {
+        cons = consulta(i, i, i, "01/01/2022", "Consulta de Rotina");
+        salvaConsulta(cons, out);
+        free(cons);
+    }
+}

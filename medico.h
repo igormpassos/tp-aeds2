@@ -23,4 +23,6 @@ void imprimirBaseMedico(FILE *out);
 
 void shuffle(int *vet, int MAX, int MIN);
 
+void criarBaseMedicoOrdenada(FILE *out, int tam);
+
 #endif

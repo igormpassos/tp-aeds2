@@ -21,4 +21,6 @@ void criarBaseConsulta(FILE *out, int tam);
 
 void imprimirBaseConsulta(FILE *out);
 
+void criarBaseConsultaOrdenada(FILE *out, int tam);
+
 #endif

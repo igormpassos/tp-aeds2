@@ -21,4 +21,6 @@ void criarBaseExame(FILE *out, int tam);
 
 void imprimirBaseExame(FILE *out);
 
+void criarBaseExameOrdenada(FILE *out, int tam);
+
 #endif

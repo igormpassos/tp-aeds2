@@ -86,3 +86,16 @@ void shuffle(int *vet, int MAX, int MIN) {
         vet[i] = tmp;
     }
 }
+
+void criarBaseMedicoOrdenada(FILE *out, int tam) {
+    int vet[tam];
+    TMedico *med;
+
+    printf("\nGerando a base de dados de Médicos Ordenada...\n");
+
+    for (int i = 0; i < tam; i++) {
+        med = medico(i, "Médico", "000.000.000-00", "01/01/1980", "Cardiologia");
+        salvaMedico(med, out);
+        free(med);
+    }
+}

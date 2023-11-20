@@ -76,3 +76,16 @@ void imprimirBaseExame(FILE *out) {
 
     free(exam);
 }
+
+void criarBaseExameOrdenada(FILE *out, int tam) {
+    int vet[tam];
+    TExame *exam;
+
+    printf("\nGerando a base de dados de Exames Ordenada...\n");
+
+    for (int i = 0; i < tam; i++) {
+        exam = exame(i, i, "01/01/2022", "Sangue", "Normal");
+        salvaExame(exam, out);
+        free(exam);
+    }
+}
