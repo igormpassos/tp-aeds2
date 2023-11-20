@@ -1,0 +1,32 @@
+Entidade: Médico
+Número de comparações: 9
+Tempo de execução: 0.000043 segundos
+
+Entidade: Paciente
+Número de comparações: 8
+Tempo de execução: 0.000067 segundos
+
+Entidade: Médico
+Número de comparações: 9
+Tempo de execução: 0.000085 segundos
+
+Entidade: Paciente
+Número de comparações: 6
+Tempo de execução: 0.000059 segundos
+
+Entidade: Médico
+Número de comparações: 9
+Tempo de execução: 0.000096 segundos
+
+Entidade: Paciente
+Número de comparações: 8
+Tempo de execução: 0.000061 segundos
+
+Entidade: Consulta
+Número de comparações: 9
+Tempo de execução: 0.000065 segundos
+
+Entidade: Exame
+Número de comparações: 9
+Tempo de execução: 0.000063 segundos
+
