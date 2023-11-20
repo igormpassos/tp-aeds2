@@ -83,7 +83,7 @@ int main() {
     printf("Numero de comparações na busca sequencial: %d\n", comparacoes);
     printf("Tempo de execucao: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
-    salvarLog("Médico (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
+    salvarLog("Medico (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Busca Sequencial Paciente ========================================
 
@@ -178,17 +178,17 @@ int main() {
     fim = clock();
 
     if (medEncontradoBin) {
-        printf("Médico encontrado:\n\n");
+        printf("Medico encontrado:\n\n");
         imprimeMedico(medEncontradoBin);
         free(medEncontradoBin);
     } else {
-        printf("Médico não encontrado.\n\n");
+        printf("Medico não encontrado.\n\n");
     }
 
     printf("Número de comparações na busca binaria: %d\n", comparacoes);
     printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
-    salvarLog("Médico (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
+    salvarLog("Medico (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Busca Binária Paciente ========================================
 
