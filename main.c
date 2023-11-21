@@ -17,7 +17,7 @@ void salvarLog(const char *entidade, int comparacoes, double tempo, int base) {
 
     fprintf(logFile, "Entidade: %s\n", entidade);
     fprintf(logFile, "Tamanho da base: %d\n\n", base);
-    fprintf(logFile, "Numero de comparações: %d\n", comparacoes);
+    fprintf(logFile, "Numero de comparacoes: %d\n", comparacoes);
     fprintf(logFile, "Tempo de execucao: %lf segundos\n\n", tempo);
 
     fclose(logFile);
@@ -36,7 +36,7 @@ int main() {
 
     //Criando Bases ========================================
 
-    int tamBase = 10;
+    int tamBase = 100000;
 
     criarBaseMedico(medicoFile, tamBase);
     fflush(medicoFile); // Garante que os dados sejam gravados no arquivo antes de imprimir
@@ -80,13 +80,14 @@ int main() {
         printf("Medico não encontrado.\n\n");
     }
 
-    printf("Numero de comparações na busca sequencial: %d\n", comparacoes);
+    printf("Numero de comparacoes na busca sequencial: %d\n", comparacoes);
     printf("Tempo de execucao: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Medico (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Busca Sequencial Paciente ========================================
 
+    printf("\n===== Busca Sequencial Paciente =====\n");
     printf("Digite o ID: ");
     scanf("%d", &cod_busca);
 
@@ -103,13 +104,14 @@ int main() {
         printf("Paciente não encontrado.\n\n");
     }
 
-    printf("Numero de comparações na busca sequencial: %d\n", comparacoes);
+    printf("Numero de comparacoes na busca sequencial: %d\n", comparacoes);
     printf("Tempo de execucao: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Paciente (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Busca Sequencial Consulta ========================================
 
+    printf("\n===== Busca Sequencial Consulta =====\n");
     printf("Digite o ID: ");
     scanf("%d", &cod_busca);
 
@@ -126,13 +128,13 @@ int main() {
         printf("Consulta não encontrado.\n\n");
     }
 
-    printf("Numero de comparações na busca sequencial: %d\n", comparacoes);
+    printf("Numero de comparacoes na busca sequencial: %d\n", comparacoes);
     printf("Tempo de execucao: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Consulta (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Busca Sequencial Exame ========================================
-
+    printf("\n===== Busca Sequencial Exame =====\n");
     printf("Digite o ID: ");
     scanf("%d", &cod_busca);
 
@@ -149,7 +151,7 @@ int main() {
         printf("Exame não encontrado.\n\n");
     }
 
-    printf("Numero de comparações na busca sequencial: %d\n", comparacoes);
+    printf("Numero de comparacoes na busca sequencial: %d\n", comparacoes);
     printf("Tempo de execucao: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Exame (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
@@ -170,6 +172,7 @@ int main() {
 
     //Busca Binária Medico ========================================
 
+    printf("\n===== Busca Binaria Medico =====\n");
     printf("\nDigite o CRM: ");
     scanf("%d", &cod_busca);
 
@@ -185,12 +188,13 @@ int main() {
         printf("Medico não encontrado.\n\n");
     }
 
-    printf("Número de comparações na busca binaria: %d\n", comparacoes);
+    printf("Número de comparacoes na busca binaria: %d\n", comparacoes);
     printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Medico (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Busca Binária Paciente ========================================
+    printf("\n===== Busca Binaria Paciente =====\n");
 
     printf("Digite o ID: ");
     scanf("%d", &cod_busca);
@@ -207,13 +211,13 @@ int main() {
         printf("Paciente não encontrado.\n\n");
     }
 
-    printf("Número de comparações na busca binaria: %d\n", comparacoes);
+    printf("Número de comparacoes na busca binaria: %d\n", comparacoes);
     printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Paciente (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Busca Binária Consulta ========================================
-
+    printf("\n===== Busca Binaria Consulta =====\n");
     printf("Digite o ID: ");
     scanf("%d", &cod_busca);
 
@@ -229,13 +233,13 @@ int main() {
         printf("Consulta não encontrado.\n\n");
     }
 
-    printf("Número de comparações na busca binaria: %d\n", comparacoes);
+    printf("Número de comparacoes na busca binaria: %d\n", comparacoes);
     printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Consulta (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
     //Busca Binária Exame ========================================
-
+    printf("\n===== Busca Binaria Exame =====\n");
     printf("Digite o ID: ");
     scanf("%d", &cod_busca);
 
@@ -251,7 +255,7 @@ int main() {
         printf("Exame não encontrado.\n\n");
     }
 
-    printf("Número de comparações na busca binaria: %d\n", comparacoes);
+    printf("Número de comparacoes na busca binaria: %d\n", comparacoes);
     printf("Tempo de execução: %lf segundos\n", ((double)(fim - inicio)) / CLOCKS_PER_SEC);
 
     salvarLog("Exame (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
