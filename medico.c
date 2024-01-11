@@ -4,6 +4,7 @@
 #include <time.h>
 #include <math.h>
 #include "medico.h"
+#include "<limits.h>"
 
 TMedico *medico(int crm, char *nome, char *cpf, char *data_nascimento, char *especialidade) {
     TMedico *med = (TMedico *) malloc(sizeof(TMedico));
@@ -96,5 +97,107 @@ void criarBaseMedicoOrdenada(FILE *out, int tam) {
         med = medico(i, "Médico", "000.000.000-00", "01/01/1980", "Cardiologia");
         salvaMedico(med, out);
         free(med);
+    }
+}
+
+/**
+ * ------------------------------------------
+ * PARTE 2 
+ * ------------------------------------------
+*/
+
+#define MAX_RECORDS_PER_BLOCK 1000
+#define TEMP_FILE_PREFIX "temp_"
+
+int compareMedicos(const void *a, const void *b) {
+    TMedico *medA = (TMedico *)a;
+    TMedico *medB = (TMedico *)b;
+    return medA->crm - medB->crm;
+}
+
+/**
+ * 
+ * Função para dividir e ordenar: Esta função lerá o arquivo de médicos em blocos, 
+ * ordenará cada bloco na memória e escreverá os blocos ordenados em arquivos 
+ * temporários.
+*/
+void divideAndSort(FILE *in, int blockSize) {
+    TMedico medBuffer[blockSize];
+    int numMedicos;
+    int tempFileCounter = 0;
+    char tempFileName[50];
+
+    while (1) {
+        numMedicos = 0;
+        while (numMedicos < blockSize) {
+            TMedico *med = leMedico(in);
+            if (med == NULL) {
+                break;
+            }
+            medBuffer[numMedicos++] = *med;
+            free(med); // Libera a memória alocada por leMedico
+        }
+
+        if (numMedicos == 0) break;
+
+        qsort(medBuffer, numMedicos, sizeof(TMedico), compareMedicos);
+
+        sprintf(tempFileName, "%s%d", TEMP_FILE_PREFIX, tempFileCounter++);
+        FILE *tempFile = fopen(tempFileName, "wb");
+        for (int i = 0; i < numMedicos; i++) {
+            salvaMedico(&medBuffer[i], tempFile);
+        }
+        fclose(tempFile);
+
+        if (feof(in)) break;
+    }
+}
+
+/**
+ * Função de mesclagem: Esta função mesclará os arquivos temporários 
+ * ordenados em um único arquivo ordenado.
+*/
+void mergeSortedFiles(int numFiles, FILE *out) {
+    FILE *tempFiles[numFiles];
+    TMedico tempMedicos[numFiles];
+    int activeFiles = numFiles;
+    char tempFileName[50];
+
+    for (int i = 0; i < numFiles; i++) {
+        sprintf(tempFileName, "%s%d", TEMP_FILE_PREFIX, i);
+        tempFiles[i] = fopen(tempFileName, "rb");
+        if (!leMedico(tempFiles[i])) {
+            fclose(tempFiles[i]);
+            activeFiles--;
+        }
+    }
+
+    while (activeFiles > 0) {
+        int minIndex = -1;
+        TMedico minMedico;
+        minMedico.crm = INT_MAX;
+
+        for (int i = 0; i < numFiles; i++) {
+            if (tempFiles[i] && tempMedicos[i].crm < minMedico.crm) {
+                minMedico = tempMedicos[i];
+                minIndex = i;
+            }
+        }
+
+        if (minIndex != -1) {
+            salvaMedico(&minMedico, out);
+            if (!leMedico(tempFiles[minIndex])) {
+                fclose(tempFiles[minIndex]);
+                tempFiles[minIndex] = NULL;
+                activeFiles--;
+            }
+        }
+    }
+
+    // Cleanup
+    for (int i = 0; i < numFiles; i++) {
+        if (tempFiles[i]) fclose(tempFiles[i]);
+        sprintf(tempFileName, "%s%d", TEMP_FILE_PREFIX, i);
+        remove(tempFileName);
     }
 }
