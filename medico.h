@@ -25,4 +25,8 @@ void shuffle(int *vet, int MAX, int MIN);
 
 void criarBaseMedicoOrdenada(FILE *out, int tam);
 
+void divideAndSort(FILE *in, int blockSize);
+
+void mergeSortedFiles(int numFiles, FILE *out);
+
 #endif

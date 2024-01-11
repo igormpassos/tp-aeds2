@@ -1,10 +1,10 @@
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <math.h>
 #include "medico.h"
-#include "<limits.h>"
 
 TMedico *medico(int crm, char *nome, char *cpf, char *data_nascimento, char *especialidade) {
     TMedico *med = (TMedico *) malloc(sizeof(TMedico));
@@ -116,7 +116,6 @@ int compareMedicos(const void *a, const void *b) {
 }
 
 /**
- * 
  * Função para dividir e ordenar: Esta função lerá o arquivo de médicos em blocos, 
  * ordenará cada bloco na memória e escreverá os blocos ordenados em arquivos 
  * temporários.
@@ -159,34 +158,42 @@ void divideAndSort(FILE *in, int blockSize) {
 */
 void mergeSortedFiles(int numFiles, FILE *out) {
     FILE *tempFiles[numFiles];
-    TMedico tempMedicos[numFiles];
+    TMedico *tempMedicos[numFiles]; // Array de ponteiros para TMedico
     int activeFiles = numFiles;
     char tempFileName[50];
 
+    // Inicializa os arquivos temporários e lê o primeiro elemento de cada um
     for (int i = 0; i < numFiles; i++) {
         sprintf(tempFileName, "%s%d", TEMP_FILE_PREFIX, i);
         tempFiles[i] = fopen(tempFileName, "rb");
-        if (!leMedico(tempFiles[i])) {
+        tempMedicos[i] = leMedico(tempFiles[i]);
+        if (tempMedicos[i] == NULL) {
             fclose(tempFiles[i]);
+            tempFiles[i] = NULL;
             activeFiles--;
         }
     }
 
     while (activeFiles > 0) {
         int minIndex = -1;
-        TMedico minMedico;
-        minMedico.crm = INT_MAX;
+        TMedico *minMedico = NULL;
 
+        // Encontra o menor médico entre os primeiros de cada arquivo
         for (int i = 0; i < numFiles; i++) {
-            if (tempFiles[i] && tempMedicos[i].crm < minMedico.crm) {
+            if (tempFiles[i] && (minMedico == NULL || tempMedicos[i]->crm < minMedico->crm)) {
                 minMedico = tempMedicos[i];
                 minIndex = i;
             }
         }
 
+        // Salva o menor médico encontrado no arquivo de saída
         if (minIndex != -1) {
-            salvaMedico(&minMedico, out);
-            if (!leMedico(tempFiles[minIndex])) {
+            salvaMedico(minMedico, out);
+            free(tempMedicos[minIndex]); // Libera a memória alocada por leMedico
+
+            // Lê o próximo médico do arquivo
+            tempMedicos[minIndex] = leMedico(tempFiles[minIndex]);
+            if (tempMedicos[minIndex] == NULL) {
                 fclose(tempFiles[minIndex]);
                 tempFiles[minIndex] = NULL;
                 activeFiles--;
@@ -194,8 +201,9 @@ void mergeSortedFiles(int numFiles, FILE *out) {
         }
     }
 
-    // Cleanup
+    // Limpeza final
     for (int i = 0; i < numFiles; i++) {
+        if (tempMedicos[i]) free(tempMedicos[i]);
         if (tempFiles[i]) fclose(tempFiles[i]);
         sprintf(tempFileName, "%s%d", TEMP_FILE_PREFIX, i);
         remove(tempFileName);
