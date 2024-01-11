@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
+#include <stdbool.h>
 #include "medico.h"
 
 TMedico *medico(int crm, char *nome, char *cpf, char *data_nascimento, char *especialidade) {
@@ -208,4 +209,109 @@ void mergeSortedFiles(int numFiles, FILE *out) {
         sprintf(tempFileName, "%s%d", TEMP_FILE_PREFIX, i);
         remove(tempFileName);
     }
+}
+
+MinHeap *criaMinHeap(int capacidade) {
+    MinHeap *heap = (MinHeap *)malloc(sizeof(MinHeap));
+    heap->dados = (TMedico **)malloc(capacidade * sizeof(TMedico *));
+    heap->capacidade = capacidade;
+    heap->tamanho = 0;
+    return heap;
+}
+
+void insereHeap(MinHeap *heap, TMedico *med) {
+    if (heap->tamanho == heap->capacidade) return; // Heap cheio
+
+    heap->dados[heap->tamanho] = med;
+    int i = heap->tamanho;
+    heap->tamanho++;
+
+    // Restaura a propriedade do min-heap
+    while (i != 0 && heap->dados[(i - 1) / 2]->crm > heap->dados[i]->crm) {
+        TMedico *temp = heap->dados[(i - 1) / 2];
+        heap->dados[(i - 1) / 2] = heap->dados[i];
+        heap->dados[i] = temp;
+        i = (i - 1) / 2;
+    }
+}
+
+TMedico *removeMin(MinHeap *heap) {
+    if (heap->tamanho <= 0) return NULL;
+    if (heap->tamanho == 1) {
+        heap->tamanho--;
+        return heap->dados[0];
+    }
+
+    TMedico *raiz = heap->dados[0];
+    heap->dados[0] = heap->dados[heap->tamanho - 1];
+    heap->tamanho--;
+
+    // Restaura a propriedade do min-heap
+    int i = 0;
+    while (i < heap->tamanho) {
+        int esq = 2 * i + 1;
+        int dir = 2 * i + 2;
+        int menor = i;
+
+        if (esq < heap->tamanho && heap->dados[esq]->crm < heap->dados[menor]->crm) menor = esq;
+        if (dir < heap->tamanho && heap->dados[dir]->crm < heap->dados[menor]->crm) menor = dir;
+
+        if (menor != i) {
+            TMedico *temp = heap->dados[i];
+            heap->dados[i] = heap->dados[menor];
+            heap->dados[menor] = temp;
+            i = menor;
+        } else {
+            break;
+        }
+    }
+
+    return raiz;
+}
+
+void liberaHeap(MinHeap *heap) {
+    free(heap->dados);
+    free(heap);
+}
+
+// Função para gerar partições ordenadas de seleção natural
+void geraParticoesOrdenadasSelecaoNatural(FILE *in, int tamanhoBloco) {
+    MinHeap *heap = criaMinHeap(tamanhoBloco);
+    int numParticao = 0;
+    char nomeArquivo[256];
+    FILE *out = NULL;
+    TMedico *med;
+
+    while ((med = leMedico(in)) != NULL) {
+        insereHeap(heap, med);
+
+        if (heap->tamanho == tamanhoBloco) {
+            sprintf(nomeArquivo, "particao_%d", numParticao++);
+            out = fopen(nomeArquivo, "wb");
+
+            while (heap->tamanho > 0) {
+                med = removeMin(heap);
+                salvaMedico(med, out);
+                free(med);
+            }
+
+            fclose(out);
+        }
+    }
+
+    // Processa quaisquer elementos restantes no heap
+    if (heap->tamanho > 0) {
+        sprintf(nomeArquivo, "particao_%d", numParticao);
+        out = fopen(nomeArquivo, "wb");
+
+        while (heap->tamanho > 0) {
+            med = removeMin(heap);
+            salvaMedico(med, out);
+            free(med);
+        }
+
+        fclose(out);
+    }
+
+    liberaHeap(heap);
 }

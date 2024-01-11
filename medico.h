@@ -9,6 +9,12 @@ typedef struct {
     char especialidade[50];
 } TMedico;
 
+typedef struct {
+    TMedico **dados; // Array de ponteiros para TMedico
+    int capacidade;
+    int tamanho;
+} MinHeap;
+
 TMedico *medico(int crm, char *nome, char *cpf, char *data_nascimento, char *especialidade);
 
 void salvaMedico(TMedico *med, FILE *out);
