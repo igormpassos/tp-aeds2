@@ -315,3 +315,35 @@ void geraParticoesOrdenadasSelecaoNatural(FILE *in, int tamanhoBloco) {
 
     liberaHeap(heap);
 }
+
+void intercalaArvoreVencedores(FILE **arquivosEntrada, int numArquivos, FILE *arquivoSaida) {
+    MinHeap *heap = criaMinHeap(numArquivos);
+    NoArvoreVencedores *nos = malloc(numArquivos * sizeof(NoArvoreVencedores));
+
+    // Inicializa a árvore de vencedores com o primeiro elemento de cada arquivo
+    for (int i = 0; i < numArquivos; i++) {
+        TMedico *med = leMedico(arquivosEntrada[i]);
+        if (med != NULL) {
+            nos[i].medico = med;
+            nos[i].indiceArquivo = i;
+            insereHeap(heap, &nos[i]);
+        }
+    }
+
+    // Intercalação principal
+    while (heap->tamanho > 0) {
+        NoArvoreVencedores *vencedor = removeMin(heap);
+        salvaMedico(vencedor->medico, arquivoSaida);
+
+        // Lê o próximo médico do arquivo vencedor
+        TMedico *proximoMed = leMedico(arquivosEntrada[vencedor->indiceArquivo]);
+        if (proximoMed != NULL) {
+            vencedor->medico = proximoMed;
+            insereHeap(heap, vencedor);
+        }
+    }
+
+    // Limpeza
+    free(nos);
+    liberaHeap(heap);
+}

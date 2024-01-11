@@ -15,6 +15,12 @@ typedef struct {
     int tamanho;
 } MinHeap;
 
+typedef struct NoArvoreVencedores {
+    TMedico *medico;
+    int indiceArquivo; // Índice do arquivo de onde o médico veio
+} NoArvoreVencedores;
+
+
 TMedico *medico(int crm, char *nome, char *cpf, char *data_nascimento, char *especialidade);
 
 void salvaMedico(TMedico *med, FILE *out);
