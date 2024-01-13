@@ -108,7 +108,7 @@ void criarBaseMedicoOrdenada(FILE *out, int tam) {
 */
 
 #define MAX_RECORDS_PER_BLOCK 1000
-#define TEMP_FILE_PREFIX "temp_"
+#define TEMP_FILE_PREFIX "temp/temp_"
 
 int compareMedicos(const void *a, const void *b) {
     TMedico *medA = (TMedico *)a;
@@ -138,12 +138,23 @@ void divideAndSort(FILE *in, int blockSize) {
             free(med); // Libera a memória alocada por leMedico
         }
 
-        if (numMedicos == 0) break;
+        if (numMedicos == 0) {
+            printf("Nenhum medico lido, terminando a criacao de arquivos temporarios.\n");
+            break;
+        }
 
+        printf("Processando %d medicos...\n", numMedicos);
         qsort(medBuffer, numMedicos, sizeof(TMedico), compareMedicos);
 
         sprintf(tempFileName, "%s%d", TEMP_FILE_PREFIX, tempFileCounter++);
+        printf("Criando arquivo temporario: %s\n", tempFileName);
+
         FILE *tempFile = fopen(tempFileName, "wb");
+        if (tempFile == NULL) {
+            perror("Erro ao abrir arquivo temporario");
+            exit(EXIT_FAILURE); // Ou lide com o erro de forma adequada
+        }
+
         for (int i = 0; i < numMedicos; i++) {
             salvaMedico(&medBuffer[i], tempFile);
         }
@@ -286,7 +297,7 @@ void geraParticoesOrdenadasSelecaoNatural(FILE *in, int tamanhoBloco) {
         insereHeap(heap, med);
 
         if (heap->tamanho == tamanhoBloco) {
-            sprintf(nomeArquivo, "particao_%d", numParticao++);
+            sprintf(nomeArquivo, "temp/particao_%d", numParticao++);
             out = fopen(nomeArquivo, "wb");
 
             while (heap->tamanho > 0) {
@@ -301,7 +312,7 @@ void geraParticoesOrdenadasSelecaoNatural(FILE *in, int tamanhoBloco) {
 
     // Processa quaisquer elementos restantes no heap
     if (heap->tamanho > 0) {
-        sprintf(nomeArquivo, "particao_%d", numParticao);
+        sprintf(nomeArquivo, "temp/particao_%d", numParticao);
         out = fopen(nomeArquivo, "wb");
 
         while (heap->tamanho > 0) {
