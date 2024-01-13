@@ -24,6 +24,9 @@ void salvarLog(const char *entidade, int comparacoes, double tempo, int base) {
 }
 
 int main() {
+    int comparacoes;
+    clock_t inicio, fim;
+
     FILE *medicoFile = fopen("medicos.dat", "w+b");
     FILE *pacienteFile = fopen("pacientes.dat", "w+b");
     FILE *consultaFile = fopen("consultas.dat", "w+b");
@@ -35,12 +38,101 @@ int main() {
     }
 
     //Criando Bases ========================================
-
     int tamBase = 100000;
+
+    // Define o tamanho do bloco para a divisão e ordenação
+    int tamanhoBloco = 100; // Num de registros por bloco
+
+    // Numero de arquivos temporarios criados
+    int numArquivosTemporarios = tamBase / tamanhoBloco;
 
     criarBaseMedico(medicoFile, tamBase);
     fflush(medicoFile); // Garante que os dados sejam gravados no arquivo antes de imprimir
 
+    /**
+     * PARTE 2 do trabalho
+    */
+
+    /** 
+     * -----------------------------------
+     * Questao 1
+     * -----------------------------------
+     */
+    if (medicoFile == NULL) {
+        perror("Erro ao abrir o arquivo de médicos");
+        return 1;
+    }
+
+    rewind(medicoFile);
+    // Divide e ordena o arquivo de médicos em blocos ordenados salvos em arquivos temporários
+    divideAndSort(medicoFile, tamanhoBloco);
+
+    // Fecha o arquivo de entrada
+    fclose(medicoFile);
+
+    // Abre o arquivo de saída para a mesclagem final
+    FILE *arquivoSaida = fopen("medicos_merged.dat", "wb");
+    if (arquivoSaida == NULL) {
+        perror("Erro ao abrir o arquivo de saída");
+        return 1;
+    }
+
+    inicio = clock();
+    // Mescla os arquivos temporários ordenados em um único arquivo ordenado
+    mergeSortedFiles(numArquivosTemporarios, arquivoSaida);
+    fim = clock();
+    
+    salvarLog("Medico (Ordenação em disco)", 0, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
+
+    // Fecha o arquivo de saída
+    fclose(arquivoSaida);
+
+    /**
+     * ------------------------------------
+     * Questão 2
+     * ------------------------------------
+    */
+    FILE *in = fopen("medicos.dat", "rb");
+    inicio = clock();
+    geraParticoesOrdenadasSelecaoNatural(in, MAX_RECORDS_PER_BLOCK);
+    fim = clock();
+    
+    // salvarLog("Medico (Partições ordenadas: Seleção Natural)", 0, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
+
+    fclose(in);
+
+    /**
+     * -------------------------------------
+     * Questão 3
+     * -------------------------------------
+    */
+    FILE *arquivosEntrada[numArquivosTemporarios];
+    char nomeArquivo[256];
+
+    for (int i = 0; i < numArquivosTemporarios; i++) {
+        sprintf(nomeArquivo, "temp/particao_%d", i);
+        arquivosEntrada[i] = fopen(nomeArquivo, "rb");
+    }
+
+    FILE *arquivoSaida = fopen("medicos_ordenados.dat", "wb");
+    
+    inicio = clock();
+    intercalaArvoreVencedores(arquivosEntrada, numArquivosTemporarios, arquivoSaida);
+    fim = clock();
+
+    salvarLog("Medico (Intercalação: Arvore Binária de Vencedores)", 0, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
+    
+    // Fechar arquivos
+    for (int i = 0; i < numArquivosTemporarios; i++) {
+        fclose(arquivosEntrada[i]);
+    }
+    fclose(arquivoSaida);
+
+    return 0;
+
+    /**
+     * PARTE 1 do trabalho
+    */
     criarBasePaciente(pacienteFile, tamBase);
     fflush(pacienteFile);
 
@@ -63,9 +155,6 @@ int main() {
     int cod_busca;
     printf("\nDigite o CRM: ");
     scanf("%d", &cod_busca);
-
-    int comparacoes;
-    clock_t inicio, fim;
 
     // Busca em uma base de dados ordenada
     inicio = clock();
@@ -244,7 +333,7 @@ int main() {
     scanf("%d", &cod_busca);
 
     inicio = clock();
-    TMedico *examEncontradoBin = buscarBinariaExame(medicoFile, cod_busca, &comparacoes);
+    TExame *examEncontradoBin = buscarBinariaExame(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
     if (examEncontradoBin) {
