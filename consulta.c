@@ -35,10 +35,10 @@ TConsulta *leConsulta(FILE *in) {
 void imprimeConsulta(TConsulta *consulta) {
     printf("**********************************************\n");
     printf("Consulta de ID %d\n", consulta->id);
-    printf("ID Médico: %d\n", consulta->idMedico);
+    printf("ID Medico: %d\n", consulta->idMedico);
     printf("ID Paciente: %d\n", consulta->idPaciente);
     printf("Data: %s\n", consulta->data);
-    printf("Descrição: %s\n", consulta->descricao);
+    printf("Descricao: %s\n", consulta->descricao);
     printf("Ocupado: %d\n", consulta->ocupado);
     printf("**********************************************\n");
 }
