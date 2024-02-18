@@ -9,14 +9,14 @@
 #include "compartimentoHash.h"
 
 
-void imprime_compartimentos(ListaCompartimentos *lc){
+void imprimeCompartimentos(ListaCompartimentos *lc){
 	int i;
 	for (i = 0; i < lc->qtd; i++) {
-		imprime_compartimento(lc->lista[i]);
+		imprimeCompartimento(lc->lista[i]);
 	}
 }
 
-ListaCompartimentos *cria_compartimentos(int qtd, ...){
+ListaCompartimentos *criaCompartimentos(int qtd, ...){
 	va_list ap;
 	ListaCompartimentos *lc = (ListaCompartimentos *)  malloc(sizeof(ListaCompartimentos));
 	lc->qtd = qtd;
@@ -30,22 +30,22 @@ ListaCompartimentos *cria_compartimentos(int qtd, ...){
     return lc;
 }
 
-void salva_compartimentos(char *nome_arquivo, ListaCompartimentos *lc){
+void salvaCompartimentos(char *nome_arquivo, ListaCompartimentos *lc){
 	FILE *out = fopen(nome_arquivo, "wb");
 	int i;
 	for (i = 0; i < lc->qtd; i++) {
-		salva_compartimento(lc->lista[i], out);
+		salvaCompartimento(lc->lista[i], out);
 	}
 	fclose(out);
 }
 
-ListaCompartimentos * le_compartimentos(char *nome_arquivo){
+ListaCompartimentos * leCompartimentos(char *nome_arquivo){
 	int qtd = 0;
 	ListaCompartimentos *lc = (ListaCompartimentos *)  malloc(sizeof(ListaCompartimentos));
 	FILE *in = fopen(nome_arquivo, "rb");
 	if (in != NULL) {
 		TCompartimento *compartimento = NULL;
-		while((compartimento = le_compartimento(in)) != NULL) {
+		while((compartimento = leCompartimento(in)) != NULL) {
 			qtd += 1;
 			free(compartimento);
 		}
@@ -53,7 +53,7 @@ ListaCompartimentos * le_compartimentos(char *nome_arquivo){
 		lc->qtd = qtd;
 		lc->lista = (TCompartimento **) malloc(sizeof(TCompartimento *) * (qtd));
 		qtd = 0;
-		while((compartimento = le_compartimento(in)) != NULL) {
+		while((compartimento = leCompartimento(in)) != NULL) {
 			lc->lista[qtd++] = compartimento;
 		}
 		fclose(in);
@@ -64,20 +64,20 @@ ListaCompartimentos * le_compartimentos(char *nome_arquivo){
 	return lc;
 }
 
-int cmp_compartimentos(ListaCompartimentos *c1, ListaCompartimentos *c2){
+int cmpCompartimentos(ListaCompartimentos *c1, ListaCompartimentos *c2){
 	if (c1->qtd != c2->qtd) {
 		return 0;
 	}
 	int i;
 	for (i = 0; i < c1->qtd; i++) {
-		if (!cmp_compartimento(c1->lista[i], c2->lista[i])) {
+		if (!cmpCompartimento(c1->lista[i], c2->lista[i])) {
 			return 0;
 		}
 	}
 	return 1;
 }
 
-void libera_compartimentos(ListaCompartimentos *lc){
+void liberaCompartimentos(ListaCompartimentos *lc){
 	int i;
 	for (i = 0; i < lc->qtd; i++) {
 		free(lc->lista[i]);

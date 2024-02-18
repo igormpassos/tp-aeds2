@@ -9,22 +9,22 @@
 #include "compartimentoHash.h"
 
 
-void imprime_compartimento(TCompartimento *compartimento){
+void imprimeCompartimento(TCompartimento *compartimento){
 	printf("%d\n", compartimento->prox);
 }
 
-TCompartimento *compartimento_hash(int prox){
+TCompartimento *compartimentoHash(int prox){
 	TCompartimento *compartimento = (TCompartimento *) malloc(sizeof(TCompartimento));
 	compartimento->prox = prox;
 	return compartimento;
 }
 
 
-void salva_compartimento(TCompartimento *compartimento, FILE *out){
+void salvaCompartimento(TCompartimento *compartimento, FILE *out){
 	fwrite(&compartimento->prox, sizeof(int), 1, out);
 }
 
-TCompartimento *le_compartimento(FILE *in){
+TCompartimento *leCompartimento(FILE *in){
 	TCompartimento *compartimento = (TCompartimento *) malloc(sizeof(TCompartimento));
 	if (0 >= fread(&compartimento->prox, sizeof(int), 1, in)) {
 		free(compartimento);
@@ -33,7 +33,7 @@ TCompartimento *le_compartimento(FILE *in){
 	return compartimento;
 }
 
-int cmp_compartimento(TCompartimento *c1, TCompartimento *c2){
+int cmpCompartimento(TCompartimento *c1, TCompartimento *c2){
 	if (c1 == NULL) {
 		return (c2 == NULL);
 	}
@@ -43,6 +43,6 @@ int cmp_compartimento(TCompartimento *c1, TCompartimento *c2){
 	return 1;
 }
 
-int tamanho_compartimento(){
+int tamanhoCompartimento(){
 	return sizeof(int); // prox
 }
