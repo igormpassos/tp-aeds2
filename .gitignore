@@ -1,6 +1,10 @@
 *.dat
 *.txt
 *.out
+*.dSYM
 .vscode/
 main.dSYM/
 temp/
+mainPart1
+mainPart2
+mainPart3
