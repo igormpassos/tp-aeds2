@@ -1,45 +1,25 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/igorpassos/Documents/UFOP/AEDSII/tp-aeds2/output/main'
+binary-path:     '/Users/igorpassos/Documents/tp-aeds2/output/main'
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _medico, symObjAddr: 0x0, symBinAddr: 0x100000C58, symSize: 0xC4 }
-  - { offsetInCU: 0x1EE, offset: 0x1EE, size: 0x8, addend: 0x0, symName: _medico, symObjAddr: 0x0, symBinAddr: 0x100000C58, symSize: 0xC4 }
-  - { offsetInCU: 0x25C, offset: 0x25C, size: 0x8, addend: 0x0, symName: _salvaMedico, symObjAddr: 0xC4, symBinAddr: 0x100000D1C, symSize: 0x9C }
-  - { offsetInCU: 0x28E, offset: 0x28E, size: 0x8, addend: 0x0, symName: _leMedico, symObjAddr: 0x160, symBinAddr: 0x100000DB8, symSize: 0xD8 }
-  - { offsetInCU: 0x2C4, offset: 0x2C4, size: 0x8, addend: 0x0, symName: _imprimeMedico, symObjAddr: 0x238, symBinAddr: 0x100000E90, symSize: 0xC4 }
-  - { offsetInCU: 0x2E8, offset: 0x2E8, size: 0x8, addend: 0x0, symName: _criarBaseMedico, symObjAddr: 0x2FC, symBinAddr: 0x100000F54, symSize: 0x194 }
-  - { offsetInCU: 0x37B, offset: 0x37B, size: 0x8, addend: 0x0, symName: _shuffle, symObjAddr: 0x490, symBinAddr: 0x1000010E8, symSize: 0xC4 }
-  - { offsetInCU: 0x401, offset: 0x401, size: 0x8, addend: 0x0, symName: _imprimirBaseMedico, symObjAddr: 0x554, symBinAddr: 0x1000011AC, symSize: 0x68 }
-  - { offsetInCU: 0x433, offset: 0x433, size: 0x8, addend: 0x0, symName: _criarBaseMedicoOrdenada, symObjAddr: 0x5BC, symBinAddr: 0x100001214, symSize: 0xA0 }
-  - { offsetInCU: 0x48F, offset: 0x48F, size: 0x8, addend: 0x0, symName: _paciente, symObjAddr: 0x65C, symBinAddr: 0x1000012B4, symSize: 0xC4 }
-  - { offsetInCU: 0x4FD, offset: 0x4FD, size: 0x8, addend: 0x0, symName: _salvaPaciente, symObjAddr: 0x720, symBinAddr: 0x100001378, symSize: 0x98 }
-  - { offsetInCU: 0x52F, offset: 0x52F, size: 0x8, addend: 0x0, symName: _lePaciente, symObjAddr: 0x7B8, symBinAddr: 0x100001410, symSize: 0xD4 }
-  - { offsetInCU: 0x565, offset: 0x565, size: 0x8, addend: 0x0, symName: _imprimePaciente, symObjAddr: 0x88C, symBinAddr: 0x1000014E4, symSize: 0xC4 }
-  - { offsetInCU: 0x589, offset: 0x589, size: 0x8, addend: 0x0, symName: _criarBasePaciente, symObjAddr: 0x950, symBinAddr: 0x1000015A8, symSize: 0x194 }
-  - { offsetInCU: 0x61C, offset: 0x61C, size: 0x8, addend: 0x0, symName: _imprimirBasePaciente, symObjAddr: 0xAE4, symBinAddr: 0x10000173C, symSize: 0x68 }
-  - { offsetInCU: 0x64E, offset: 0x64E, size: 0x8, addend: 0x0, symName: _criarBasePacienteOrdenada, symObjAddr: 0xB4C, symBinAddr: 0x1000017A4, symSize: 0xA0 }
-  - { offsetInCU: 0x6AA, offset: 0x6AA, size: 0x8, addend: 0x0, symName: _consulta, symObjAddr: 0xBEC, symBinAddr: 0x100001844, symSize: 0xB4 }
-  - { offsetInCU: 0x718, offset: 0x718, size: 0x8, addend: 0x0, symName: _salvaConsulta, symObjAddr: 0xCA0, symBinAddr: 0x1000018F8, symSize: 0x9C }
-  - { offsetInCU: 0x74A, offset: 0x74A, size: 0x8, addend: 0x0, symName: _leConsulta, symObjAddr: 0xD3C, symBinAddr: 0x100001994, symSize: 0xD8 }
-  - { offsetInCU: 0x780, offset: 0x780, size: 0x8, addend: 0x0, symName: _imprimeConsulta, symObjAddr: 0xE14, symBinAddr: 0x100001A6C, symSize: 0xCC }
-  - { offsetInCU: 0x7A4, offset: 0x7A4, size: 0x8, addend: 0x0, symName: _criarBaseConsulta, symObjAddr: 0xEE0, symBinAddr: 0x100001B38, symSize: 0x194 }
-  - { offsetInCU: 0x837, offset: 0x837, size: 0x8, addend: 0x0, symName: _imprimirBaseConsulta, symObjAddr: 0x1074, symBinAddr: 0x100001CCC, symSize: 0x68 }
-  - { offsetInCU: 0x869, offset: 0x869, size: 0x8, addend: 0x0, symName: _criarBaseConsultaOrdenada, symObjAddr: 0x10DC, symBinAddr: 0x100001D34, symSize: 0x98 }
-  - { offsetInCU: 0x8C5, offset: 0x8C5, size: 0x8, addend: 0x0, symName: _exame, symObjAddr: 0x1174, symBinAddr: 0x100001DCC, symSize: 0xBC }
-  - { offsetInCU: 0x933, offset: 0x933, size: 0x8, addend: 0x0, symName: _salvaExame, symObjAddr: 0x1230, symBinAddr: 0x100001E88, symSize: 0x9C }
-  - { offsetInCU: 0x965, offset: 0x965, size: 0x8, addend: 0x0, symName: _leExame, symObjAddr: 0x12CC, symBinAddr: 0x100001F24, symSize: 0xD4 }
-  - { offsetInCU: 0x99B, offset: 0x99B, size: 0x8, addend: 0x0, symName: _imprimeExame, symObjAddr: 0x13A0, symBinAddr: 0x100001FF8, symSize: 0xC8 }
-  - { offsetInCU: 0x9BF, offset: 0x9BF, size: 0x8, addend: 0x0, symName: _criarBaseExame, symObjAddr: 0x1468, symBinAddr: 0x1000020C0, symSize: 0x194 }
-  - { offsetInCU: 0xA52, offset: 0xA52, size: 0x8, addend: 0x0, symName: _imprimirBaseExame, symObjAddr: 0x15FC, symBinAddr: 0x100002254, symSize: 0x68 }
-  - { offsetInCU: 0xA84, offset: 0xA84, size: 0x8, addend: 0x0, symName: _criarBaseExameOrdenada, symObjAddr: 0x1664, symBinAddr: 0x1000022BC, symSize: 0x9C }
-  - { offsetInCU: 0xAE0, offset: 0xAE0, size: 0x8, addend: 0x0, symName: _buscarMedico, symObjAddr: 0x1700, symBinAddr: 0x100002358, symSize: 0xE0 }
-  - { offsetInCU: 0xB32, offset: 0xB32, size: 0x8, addend: 0x0, symName: _buscarPaciente, symObjAddr: 0x17E0, symBinAddr: 0x100002438, symSize: 0xE0 }
-  - { offsetInCU: 0xB84, offset: 0xB84, size: 0x8, addend: 0x0, symName: _buscarConsulta, symObjAddr: 0x18C0, symBinAddr: 0x100002518, symSize: 0xE0 }
-  - { offsetInCU: 0xBD6, offset: 0xBD6, size: 0x8, addend: 0x0, symName: _buscarExame, symObjAddr: 0x19A0, symBinAddr: 0x1000025F8, symSize: 0xE0 }
-  - { offsetInCU: 0xC28, offset: 0xC28, size: 0x8, addend: 0x0, symName: _buscarBinariaMedico, symObjAddr: 0x1A80, symBinAddr: 0x1000026D8, symSize: 0x180 }
-  - { offsetInCU: 0xCA4, offset: 0xCA4, size: 0x8, addend: 0x0, symName: _buscarBinariaPaciente, symObjAddr: 0x1C00, symBinAddr: 0x100002858, symSize: 0x180 }
-  - { offsetInCU: 0xD20, offset: 0xD20, size: 0x8, addend: 0x0, symName: _buscarBinariaConsulta, symObjAddr: 0x1D80, symBinAddr: 0x1000029D8, symSize: 0x180 }
-  - { offsetInCU: 0xD9C, offset: 0xD9C, size: 0x8, addend: 0x0, symName: _buscarBinariaExame, symObjAddr: 0x1F00, symBinAddr: 0x100002B58, symSize: 0x180 }
-  - { offsetInCU: 0xE18, offset: 0xE18, size: 0x8, addend: 0x0, symName: _salvarLog, symObjAddr: 0x2080, symBinAddr: 0x100002CD8, symSize: 0xE8 }
-  - { offsetInCU: 0xE74, offset: 0xE74, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x2168, symBinAddr: 0x100002DC0, symSize: 0xA10 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _medico, symObjAddr: 0x0, symBinAddr: 0x100001F30, symSize: 0xC4 }
+  - { offsetInCU: 0x3F8, offset: 0x3F8, size: 0x8, addend: 0x0, symName: _medico, symObjAddr: 0x0, symBinAddr: 0x100001F30, symSize: 0xC4 }
+  - { offsetInCU: 0x466, offset: 0x466, size: 0x8, addend: 0x0, symName: _salvaMedico, symObjAddr: 0xC4, symBinAddr: 0x100001FF4, symSize: 0x9C }
+  - { offsetInCU: 0x498, offset: 0x498, size: 0x8, addend: 0x0, symName: _leMedico, symObjAddr: 0x160, symBinAddr: 0x100002090, symSize: 0xD8 }
+  - { offsetInCU: 0x4CE, offset: 0x4CE, size: 0x8, addend: 0x0, symName: _imprimeMedico, symObjAddr: 0x238, symBinAddr: 0x100002168, symSize: 0xC4 }
+  - { offsetInCU: 0x4F2, offset: 0x4F2, size: 0x8, addend: 0x0, symName: _criarBaseMedico, symObjAddr: 0x2FC, symBinAddr: 0x10000222C, symSize: 0x194 }
+  - { offsetInCU: 0x585, offset: 0x585, size: 0x8, addend: 0x0, symName: _shuffle, symObjAddr: 0x490, symBinAddr: 0x1000023C0, symSize: 0xC4 }
+  - { offsetInCU: 0x60B, offset: 0x60B, size: 0x8, addend: 0x0, symName: _imprimirBaseMedico, symObjAddr: 0x554, symBinAddr: 0x100002484, symSize: 0x68 }
+  - { offsetInCU: 0x63D, offset: 0x63D, size: 0x8, addend: 0x0, symName: _criarBaseMedicoOrdenada, symObjAddr: 0x5BC, symBinAddr: 0x1000024EC, symSize: 0xA0 }
+  - { offsetInCU: 0x699, offset: 0x699, size: 0x8, addend: 0x0, symName: _buscarBinariaMedico, symObjAddr: 0x65C, symBinAddr: 0x10000258C, symSize: 0x180 }
+  - { offsetInCU: 0x715, offset: 0x715, size: 0x8, addend: 0x0, symName: _buscarBinariaPaciente, symObjAddr: 0x7DC, symBinAddr: 0x10000270C, symSize: 0x180 }
+  - { offsetInCU: 0x791, offset: 0x791, size: 0x8, addend: 0x0, symName: _buscarBinariaConsulta, symObjAddr: 0x95C, symBinAddr: 0x10000288C, symSize: 0x180 }
+  - { offsetInCU: 0x80D, offset: 0x80D, size: 0x8, addend: 0x0, symName: _buscarBinariaExame, symObjAddr: 0xADC, symBinAddr: 0x100002A0C, symSize: 0x180 }
+  - { offsetInCU: 0x889, offset: 0x889, size: 0x8, addend: 0x0, symName: _intercala, symObjAddr: 0xC5C, symBinAddr: 0x100002B8C, symSize: 0x314 }
+  - { offsetInCU: 0x939, offset: 0x939, size: 0x8, addend: 0x0, symName: _mergeSortExterno, symObjAddr: 0xF70, symBinAddr: 0x100002EA0, symSize: 0x98 }
+  - { offsetInCU: 0x995, offset: 0x995, size: 0x8, addend: 0x0, symName: _ordenacaoExterna, symObjAddr: 0x1008, symBinAddr: 0x100002F38, symSize: 0xC4 }
+  - { offsetInCU: 0xA0D, offset: 0xA0D, size: 0x8, addend: 0x0, symName: _selecaoPorSubstituicao, symObjAddr: 0x10CC, symBinAddr: 0x100002FFC, symSize: 0x40C }
+  - { offsetInCU: 0xB90, offset: 0xB90, size: 0x8, addend: 0x0, symName: _intercalacaoOtima, symObjAddr: 0x14D8, symBinAddr: 0x100003408, symSize: 0x244 }
+  - { offsetInCU: 0xC40, offset: 0xC40, size: 0x8, addend: 0x0, symName: _salvarLog, symObjAddr: 0x171C, symBinAddr: 0x10000364C, symSize: 0xD4 }
+  - { offsetInCU: 0xC8E, offset: 0xC8E, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x17F0, symBinAddr: 0x100003720, symSize: 0x370 }
 ...

@@ -1,0 +1,17 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/igorpassos/Documents/tp-aeds2/output/mainPart3'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _funcaoHash, symObjAddr: 0x0, symBinAddr: 0x100003440, symSize: 0x24 }
+  - { offsetInCU: 0x59, offset: 0x59, size: 0x8, addend: 0x0, symName: _tabelaHash, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offsetInCU: 0x144, offset: 0x144, size: 0x8, addend: 0x0, symName: _funcaoHash, symObjAddr: 0x0, symBinAddr: 0x100003440, symSize: 0x24 }
+  - { offsetInCU: 0x16C, offset: 0x16C, size: 0x8, addend: 0x0, symName: _buscarConsulta, symObjAddr: 0x24, symBinAddr: 0x100003464, symSize: 0x98 }
+  - { offsetInCU: 0x1B0, offset: 0x1B0, size: 0x8, addend: 0x0, symName: _inserirConsulta, symObjAddr: 0xBC, symBinAddr: 0x1000034FC, symSize: 0x98 }
+  - { offsetInCU: 0x1F1, offset: 0x1F1, size: 0x8, addend: 0x0, symName: _removerConsulta, symObjAddr: 0x154, symBinAddr: 0x100003594, symSize: 0x108 }
+  - { offsetInCU: 0x23F, offset: 0x23F, size: 0x8, addend: 0x0, symName: _imprimirTabelaHash, symObjAddr: 0x25C, symBinAddr: 0x10000369C, symSize: 0x110 }
+  - { offsetInCU: 0x28D, offset: 0x28D, size: 0x8, addend: 0x0, symName: _salvarLog, symObjAddr: 0x36C, symBinAddr: 0x1000037AC, symSize: 0xD4 }
+  - { offsetInCU: 0x2DB, offset: 0x2DB, size: 0x8, addend: 0x0, symName: _testeInserir, symObjAddr: 0x440, symBinAddr: 0x100003880, symSize: 0x1A4 }
+  - { offsetInCU: 0x37F, offset: 0x37F, size: 0x8, addend: 0x0, symName: _testeBuscar, symObjAddr: 0x5E4, symBinAddr: 0x100003A24, symSize: 0x13C }
+  - { offsetInCU: 0x3E9, offset: 0x3E9, size: 0x8, addend: 0x0, symName: _testeRemover, symObjAddr: 0x720, symBinAddr: 0x100003B60, symSize: 0x6C }
+  - { offsetInCU: 0x445, offset: 0x445, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x78C, symBinAddr: 0x100003BCC, symSize: 0x10C }
+...
