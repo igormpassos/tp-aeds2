@@ -1,18 +1,17 @@
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "encadeamentoExterior.h"
+#include "../consulta.h" // Incluído para utilizar a estrutura TConsulta e suas funções auxiliares
 
-#define TAM_MAX_DATA 11
-#define TAM_MAX_DESCRICAO 200
-
-typedef struct {
-    int id;
-    int id_medico;
-    int id_paciente;
-    char data[TAM_MAX_DATA];
-    char descricao[TAM_MAX_DESCRICAO];
-} TConsulta;
+// Função de hash simples
+int h(int id_consulta, int m) {
+    return id_consulta % m;
+}
 
 void cria_hash_consulta(char *nome_arquivo_hash, int m) {
     FILE *file = fopen(nome_arquivo_hash, "wb");
@@ -38,7 +37,7 @@ int busca_consulta(int id_consulta, char *nome_arquivo_hash, char *nome_arquivo_
         exit(EXIT_FAILURE);
     }
     
-    int indice = id_consulta % m;
+    int indice = h(id_consulta, m);
     fseek(file_hash, indice * sizeof(int), SEEK_SET);
     int endereco_lista;
     fread(&endereco_lista, sizeof(int), 1, file_hash);
@@ -49,13 +48,16 @@ int busca_consulta(int id_consulta, char *nome_arquivo_hash, char *nome_arquivo_
     }
     
     fseek(file_dados, endereco_lista, SEEK_SET);
-    TConsulta consulta;
-    while (fread(&consulta, sizeof(TConsulta), 1, file_dados) == 1) {
-        if (consulta.id == id_consulta) {
+    TConsulta *consulta = leConsulta(file_dados);
+    while (consulta != NULL) {
+        if (consulta->id == id_consulta) {
             fclose(file_hash);
             fclose(file_dados);
+            free(consulta);
             return endereco_lista; // Retorna o endereço onde a consulta foi encontrada
         }
+        free(consulta);
+        consulta = leConsulta(file_dados);
     }
     
     fclose(file_hash);
@@ -71,7 +73,7 @@ int insere_consulta(TConsulta *nova_consulta, char *nome_arquivo_hash, char *nom
         exit(EXIT_FAILURE);
     }
     
-    int indice = nova_consulta->id % m;
+    int indice = h(nova_consulta->id, m);
     fseek(file_hash, indice * sizeof(int), SEEK_SET);
     int endereco_lista;
     fread(&endereco_lista, sizeof(int), 1, file_hash);
@@ -114,7 +116,7 @@ int exclui_consulta(int id_consulta, char *nome_arquivo_hash, char *nome_arquivo
         exit(EXIT_FAILURE);
     }
     
-    int indice = id_consulta % m;
+    int indice = h(id_consulta, m);
     fseek(file_hash, indice * sizeof(int), SEEK_SET);
     int endereco_lista;
     fread(&endereco_lista, sizeof(int), 1, file_hash);
@@ -127,26 +129,29 @@ int exclui_consulta(int id_consulta, char *nome_arquivo_hash, char *nome_arquivo
     int endereco_anterior = -1;
     int endereco_atual = endereco_lista;
     fseek(file_dados, endereco_atual, SEEK_SET);
-    TConsulta consulta;
-    while (fread(&consulta, sizeof(TConsulta), 1, file_dados) == 1) {
-        if (consulta.id == id_consulta) {
+    TConsulta *consulta;
+    while ((consulta = leConsulta(file_dados)) != NULL) {
+        if (consulta->id == id_consulta) {
             if (endereco_anterior == -1) {
                 // Primeiro elemento da lista encadeada
                 fseek(file_hash, indice * sizeof(int), SEEK_SET);
-                fwrite(&consulta.id, sizeof(int), 1, file_hash); // Atualiza ponteiro no arquivo hash
+                fwrite(&consulta->id, sizeof(int), 1, file_hash); // Atualiza ponteiro no arquivo hash
             } else {
                 fseek(file_dados, endereco_anterior, SEEK_SET);
-                fwrite(&consulta.id, sizeof(int), 1, file_dados); // Atualiza ponteiro anterior na lista
+                fwrite(&consulta->id, sizeof(int), 1, file_dados); // Atualiza ponteiro anterior na lista
             }
             // Marca registro como excluído (pode ser reutilizado)
-            consulta.id = -1;
-            fwrite(&consulta, sizeof(TConsulta), 1, file_dados);
+            consulta->id = -1;
+            fseek(file_dados, endereco_atual, SEEK_SET);
+            salvaConsulta(consulta, file_dados);
+            free(consulta);
             fclose(file_hash);
             fclose(file_dados);
-            return endereco_atual; // Retorna o endereço onde a consulta foi excluída
+            return endereco_lista; // Retorna o endereço onde a consulta foi excluída
         }
         endereco_anterior = endereco_atual;
         endereco_atual = ftell(file_dados);
+        free(consulta);
     }
     
     fclose(file_hash);
