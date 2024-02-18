@@ -1,90 +1,71 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <math.h>
 #include "consulta.h"
 
-TConsulta *consulta(int id, int id_medico, int id_paciente, char *data, char *descricao) {
-    TConsulta *cons = (TConsulta *) malloc(sizeof(TConsulta));
-    if (cons) memset(cons, 0, sizeof(TConsulta));
-    cons->id = id;
-    cons->id_medico = id_medico;
-    cons->id_paciente = id_paciente;
-    strcpy(cons->data, data);
-    strcpy(cons->descricao, descricao);
-    return cons;
+TConsulta *criaConsulta(int id, int idMedico, int idPaciente, char *data, char *descricao) {
+    TConsulta *consulta = (TConsulta *) malloc(sizeof(TConsulta));
+    if (consulta == NULL) {
+        perror("Erro ao alocar memória");
+        exit(EXIT_FAILURE);
+    }
+    consulta->id = id;
+    consulta->idMedico = idMedico;
+    consulta->idPaciente = idPaciente;
+    strcpy(consulta->data, data);
+    strcpy(consulta->descricao, descricao);
+    consulta->ocupado = 1; // Define o registro como ocupado
+    return consulta;
 }
 
-void salvaConsulta(TConsulta *cons, FILE *out) {
-    fwrite(&cons->id, sizeof(int), 1, out);
-    fwrite(&cons->id_medico, sizeof(int), 1, out);
-    fwrite(&cons->id_paciente, sizeof(int), 1, out);
-    fwrite(cons->data, sizeof(char), sizeof(cons->data), out);
-    fwrite(cons->descricao, sizeof(char), sizeof(cons->descricao), out);
+void salvaConsulta(TConsulta *consulta, FILE *out) {
+    fwrite(consulta, sizeof(TConsulta), 1, out);
 }
 
 TConsulta *leConsulta(FILE *in) {
-    TConsulta *cons = (TConsulta *) malloc(sizeof(TConsulta));
-    if (0 >= fread(&cons->id, sizeof(int), 1, in)) {
-        free(cons);
+    TConsulta *consulta = (TConsulta *) malloc(sizeof(TConsulta));
+    if (consulta == NULL) {
+        perror("Erro ao alocar memória");
+        exit(EXIT_FAILURE);
+    }
+    if (fread(consulta, sizeof(TConsulta), 1, in) != 1) {
+        free(consulta);
         return NULL;
     }
-    fread(&cons->id_medico, sizeof(int), 1, in);
-    fread(&cons->id_paciente, sizeof(int), 1, in);
-    fread(cons->data, sizeof(char), sizeof(cons->data), in);
-    fread(cons->descricao, sizeof(char), sizeof(cons->descricao), in);
-    return cons;
+    return consulta;
 }
 
-void imprimeConsulta(TConsulta *cons) {
+void imprimeConsulta(TConsulta *consulta) {
     printf("**********************************************\n");
-    printf("Consulta de ID %d\n", cons->id);
-    printf("ID Médico: %d\n", cons->id_medico);
-    printf("ID Paciente: %d\n", cons->id_paciente);
-    printf("Data: %s\n", cons->data);
-    printf("Descrição: %s\n", cons->descricao);
+    printf("Consulta de ID %d\n", consulta->id);
+    printf("ID Médico: %d\n", consulta->idMedico);
+    printf("ID Paciente: %d\n", consulta->idPaciente);
+    printf("Data: %s\n", consulta->data);
+    printf("Descrição: %s\n", consulta->descricao);
+    printf("Ocupado: %d\n", consulta->ocupado);
     printf("**********************************************\n");
 }
 
 void criarBaseConsulta(FILE *out, int tam) {
-    int vet[tam];
-    TConsulta *cons;
-
-    for (int i = 0; i < tam; i++)
-        vet[i] = i + 1;
-
-    shuffle(vet, tam, (tam * 10) / 100);
-
-    printf("\nGerando a base de dados de Consultas...\n");
-
+    TConsulta *consulta;
     for (int i = 0; i < tam; i++) {
-        cons = consulta(vet[i], vet[i], vet[i], "01/01/2022", "Consulta de Rotina");
-        salvaConsulta(cons, out);
-        free(cons);
+        consulta = criaConsulta(i + 1, (i + 1) * 10, (i + 1) * 100, "01/01/2022", "Consulta de Rotina");
+        salvaConsulta(consulta, out);
+        free(consulta);
     }
 }
 
 void imprimirBaseConsulta(FILE *out) {
-    printf("\nImprimindo a base de dados de Consultas...\n");
-
     rewind(out);
-    TConsulta *cons;
-
-    while ((cons = leConsulta(out)) != NULL)
-        imprimeConsulta(cons);
-
-    free(cons);
+    TConsulta *consulta;
+    while ((consulta = leConsulta(out)) != NULL) {
+        imprimeConsulta(consulta);
+        free(consulta);
+    }
 }
 
 void criarBaseConsultaOrdenada(FILE *out, int tam) {
-    TConsulta *cons;
-
-    printf("\nGerando a base de dados de Consultas Ordenada...\n");
-
+    TConsulta *consulta;
     for (int i = 0; i < tam; i++) {
-        cons = consulta(i, i, i, "01/01/2022", "Consulta de Rotina");
-        salvaConsulta(cons, out);
-        free(cons);
+        consulta = criaConsulta(i, i * 10, i * 100, "01/01/2022", "Consulta de Rotina");
+        salvaConsulta(consulta, out);
+        free(consulta);
     }
 }
