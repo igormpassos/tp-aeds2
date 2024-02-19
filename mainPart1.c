@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "medico.c"
-#include "paciente.c"
-#include "consulta.c"
-#include "exame.c"
+
 #include "buscaSequencial.c"
 #include "buscaBinaria.c"
 #include "ordenacaoExterna.c"
 #include "interacoes.c"
+#include "medico.c"
+#include "paciente.c"
+#include "consulta.c"
+#include "exame.c"
 
 void salvarLog(const char *entidade, int comparacoes, double tempo, int base)
 {
@@ -51,7 +52,7 @@ int main()
     criarBasePaciente(pacienteFile, tamBase);
     fflush(pacienteFile);
 
-    criarBaseConsulta(consultaFile, tamBase);
+    criarBaseConsulta(consultaFile, medicoFile, pacienteFile, tamBase);
     fflush(consultaFile);
 
     criarBaseExame(exameFile, tamBase);
@@ -221,7 +222,7 @@ int main()
     scanf("%d", &cod_busca);
 
     inicio = clock();
-    TMedico *pacEncontradoBin = buscarBinariaPaciente(medicoFile, cod_busca, &comparacoes);
+    TPaciente *pacEncontradoBin = buscarBinariaPaciente(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
     if (pacEncontradoBin)
@@ -246,7 +247,7 @@ int main()
     scanf("%d", &cod_busca);
 
     inicio = clock();
-    TMedico *consEncontradoBin = buscarBinariaConsulta(medicoFile, cod_busca, &comparacoes);
+    TConsulta *consEncontradoBin = buscarBinariaConsulta(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
     if (consEncontradoBin)
@@ -271,7 +272,7 @@ int main()
     scanf("%d", &cod_busca);
 
     inicio = clock();
-    TMedico *examEncontradoBin = buscarBinariaExame(medicoFile, cod_busca, &comparacoes);
+    TExame *examEncontradoBin = buscarBinariaExame(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
     if (examEncontradoBin)
