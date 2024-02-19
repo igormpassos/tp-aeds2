@@ -30,8 +30,8 @@ int main() {
 
     // Parametros de configuração ========================================
     int tamBase = 100000;
-    int id_busca = 50000;
-    int id_exclusao = 33330;
+    int id_busca = 555;
+    int id_exclusao = 333;
 
     // Criando bases de dados com diferentes números de registros
     criarBaseConsulta(consultaFile, tamBase);
@@ -72,7 +72,7 @@ int main() {
     salvarLog(log_file, tamBase, "Inserção", tempo_execucao);
 
     inicio = clock();
-    endereco = excluiConsulta(300, hashConsultaFile, consultaFile, tamBase);
+    endereco = excluiConsulta(id_exclusao, hashConsultaFile, consultaFile, tamBase);
     fim = clock();
     tempo_execucao = (double)(fim - inicio) / CLOCKS_PER_SEC;
     if (endereco != -1)
