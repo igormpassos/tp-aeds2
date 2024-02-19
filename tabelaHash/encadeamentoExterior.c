@@ -6,18 +6,49 @@
 #include <stdlib.h>
 #include <string.h>
 #include "encadeamentoExterior.h"
-#include "../consulta.h"
+#include "listaCompartimentos.c" // Incluido para gerar hash na funcao criaHashConsulta
+#include "compartimentoHash.c" // Incluido para gerar hash na funcao criaHashConsulta
+#include "../consulta.c"
 
 // Função de hash simples
 int h(int id_consulta, int m) {
     return id_consulta % m;
 }
 
-void criaHashConsulta(FILE *file_hash, int m) {
+void criaHashConsulta(FILE *file_hash, FILE *file_dados, int m) {
     int vazio = -1;
-    for (int i = 0; i < m; i++) {
-        fwrite(&vazio, sizeof(int), 1, file_hash);
+    TCompartimento **compartimentos = (TCompartimento **)malloc(sizeof(TCompartimento *) * m);
+    if (compartimentos == NULL) {
+        perror("Erro ao alocar memória para compartimentos");
+        exit(EXIT_FAILURE);
     }
+    
+    // Inicializa os compartimentos com valores padrão
+    for (int i = 0; i < m; i++) {
+        compartimentos[i] = compartimentoHash(vazio); // Inicializa como vazio
+    }
+
+    // Percorre o arquivo de dados e associa a posição de cada registro a um compartimento
+    rewind(file_dados);
+    TConsulta *consulta;
+    int endereco = 0;
+    while ((consulta = leConsulta(file_dados)) != NULL) {
+        int indice = h(consulta->id, m);
+        compartimentos[indice]->prox = endereco; // Associa a posição do registro ao compartimento
+        endereco = ftell(file_dados); // Atualiza o endereço para o próximo registro
+        free(consulta);
+    }
+
+    // Escreve os compartimentos no arquivo de hash
+    for (int i = 0; i < m; i++) {
+        fwrite(&(compartimentos[i]->prox), sizeof(int), 1, file_hash);
+    }
+
+    // Libera a memória alocada para os compartimentos
+    for (int i = 0; i < m; i++) {
+        free(compartimentos[i]);
+    }
+    free(compartimentos);
 }
 
 int buscaConsulta(int id_consulta, FILE *file_hash, FILE *file_dados, int m) {

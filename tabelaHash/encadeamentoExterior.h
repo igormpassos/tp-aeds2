@@ -8,7 +8,7 @@
 int h(int id_consulta, int m);
 
 // Cria uma tabela hash vazia de tamanho m no arquivo especificado
-void criaHashConsulta(FILE *file_hash, int m);
+void criaHashConsulta(FILE *file_hash, FILE *file_dados, int m);
 
 // Executa busca em Arquivos por Encadeamento Exterior (Hash)
 // Retorna o endereço onde a consulta foi encontrada, ou -1 se não encontrada
