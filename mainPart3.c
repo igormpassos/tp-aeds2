@@ -72,7 +72,7 @@ int main() {
     salvarLog(log_file, tamBase, "Inserção", tempo_execucao);
 
     inicio = clock();
-    endereco = excluiConsulta(300, hashConsultaFile, consultaFile, tamBase);
+    endereco = excluiConsulta(id_exclusao, hashConsultaFile, consultaFile, tamBase);
     fim = clock();
     tempo_execucao = (double)(fim - inicio) / CLOCKS_PER_SEC;
     if (endereco != -1)
