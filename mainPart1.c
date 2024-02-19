@@ -7,11 +7,13 @@
 #include "buscaSequencial.c"
 #include "buscaBinaria.c"
 #include "ordenacaoExterna.c"
+#include "interacoes.c"
 
-
-void salvarLog(const char *entidade, int comparacoes, double tempo, int base) {
-    FILE *logFile = fopen("log.txt", "a");
-    if (!logFile) {
+void salvarLog(const char *entidade, int comparacoes, double tempo, int base)
+{
+    FILE *logFile = fopen("logParteI.txt", "a");
+    if (!logFile)
+    {
         perror("Erro ao abrir arquivo de log");
         exit(1);
     }
@@ -24,20 +26,23 @@ void salvarLog(const char *entidade, int comparacoes, double tempo, int base) {
     fclose(logFile);
 }
 
-int main() {
+int main()
+{
     FILE *medicoFile = fopen("medicos.dat", "w+b");
     FILE *pacienteFile = fopen("pacientes.dat", "w+b");
     FILE *consultaFile = fopen("consultas.dat", "w+b");
     FILE *exameFile = fopen("exames.dat", "w+b");
+    FILE *logFile = fopen("logParteI.txt", "a");
 
-    if (!medicoFile || !pacienteFile || !consultaFile || !exameFile) {
+    if (!medicoFile || !pacienteFile || !consultaFile || !exameFile)
+    {
         perror("Erro ao abrir arquivo");
         return 1;
     }
 
-    //Criando Bases ========================================
+    // Criando Bases ========================================
 
-    int tamBase = 100000;
+    int tamBase = 10000;
 
     criarBaseMedico(medicoFile, tamBase);
     fflush(medicoFile); // Garante que os dados sejam gravados no arquivo antes de imprimir
@@ -51,15 +56,14 @@ int main() {
     criarBaseExame(exameFile, tamBase);
     fflush(exameFile);
 
-    //Imprimindo Bases ========================================
+    // Imprimindo Bases ========================================
 
     // imprimirBaseMedico(medicoFile);
     // imprimirBasePaciente(pacienteFile);
     // imprimirBaseConsulta(consultaFile);
     // imprimirBaseExame(exameFile);
 
-
-    //Busca Sequencial Medico ========================================
+    // Busca Sequencial Medico ========================================
 
     int cod_busca;
     printf("\nDigite o CRM: ");
@@ -73,11 +77,14 @@ int main() {
     TMedico *medEncontrado = buscarMedico(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
-    if (medEncontrado) {
+    if (medEncontrado)
+    {
         printf("Medico encontrado:\n\n");
         imprimeMedico(medEncontrado);
         free(medEncontrado);
-    } else {
+    }
+    else
+    {
         printf("Medico não encontrado.\n\n");
     }
 
@@ -86,7 +93,7 @@ int main() {
 
     salvarLog("Medico (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
-    //Busca Sequencial Paciente ========================================
+    // Busca Sequencial Paciente ========================================
 
     printf("\n===== Busca Sequencial Paciente =====\n");
     printf("Digite o ID: ");
@@ -97,11 +104,14 @@ int main() {
     TPaciente *pacEncontrado = buscarPaciente(pacienteFile, cod_busca, &comparacoes);
     fim = clock();
 
-    if (pacEncontrado) {
+    if (pacEncontrado)
+    {
         printf("Paciente encontrado:\n\n");
         imprimePaciente(pacEncontrado);
         free(pacEncontrado);
-    } else {
+    }
+    else
+    {
         printf("Paciente não encontrado.\n\n");
     }
 
@@ -110,7 +120,7 @@ int main() {
 
     salvarLog("Paciente (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
-    //Busca Sequencial Consulta ========================================
+    // Busca Sequencial Consulta ========================================
 
     printf("\n===== Busca Sequencial Consulta =====\n");
     printf("Digite o ID: ");
@@ -121,11 +131,14 @@ int main() {
     TConsulta *consEncontrado = buscarConsulta(consultaFile, cod_busca, &comparacoes);
     fim = clock();
 
-    if (consEncontrado) {
+    if (consEncontrado)
+    {
         printf("Consulta encontrado:\n\n");
         imprimeConsulta(consEncontrado);
         free(consEncontrado);
-    } else {
+    }
+    else
+    {
         printf("Consulta não encontrado.\n\n");
     }
 
@@ -134,7 +147,7 @@ int main() {
 
     salvarLog("Consulta (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
-    //Busca Sequencial Exame ========================================
+    // Busca Sequencial Exame ========================================
     printf("\n===== Busca Sequencial Exame =====\n");
     printf("Digite o ID: ");
     scanf("%d", &cod_busca);
@@ -144,11 +157,14 @@ int main() {
     TExame *exaEncontrado = buscarExame(exameFile, cod_busca, &comparacoes);
     fim = clock();
 
-    if (exaEncontrado) {
+    if (exaEncontrado)
+    {
         printf("Exame encontrado:\n\n");
         imprimeExame(exaEncontrado);
         free(exaEncontrado);
-    } else {
+    }
+    else
+    {
         printf("Exame não encontrado.\n\n");
     }
 
@@ -157,21 +173,21 @@ int main() {
 
     salvarLog("Exame (Busca Sequencial)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
-    //Criando Bases Ordenadas ========================================
+    // Criando Bases Ordenadas ========================================
 
     criarBaseMedicoOrdenada(medicoFile, tamBase);
     criarBasePacienteOrdenada(pacienteFile, tamBase);
     criarBaseConsultaOrdenada(consultaFile, tamBase);
     criarBasePacienteOrdenada(exameFile, tamBase);
 
-    //Imprimindo Bases Ordenadas ========================================
+    // Imprimindo Bases Ordenadas ========================================
 
     // imprimirBaseMedico(medicoFile);
     // imprimirBasePaciente(pacienteFile);
     // imprimirBaseConsulta(consultaFile);
     // imprimirBaseExame(exameFile);
 
-    //Busca Binária Medico ========================================
+    // Busca Binária Medico ========================================
 
     printf("\n===== Busca Binaria Medico =====\n");
     printf("\nDigite o CRM: ");
@@ -181,11 +197,14 @@ int main() {
     TMedico *medEncontradoBin = buscarBinariaMedico(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
-    if (medEncontradoBin) {
+    if (medEncontradoBin)
+    {
         printf("Medico encontrado:\n\n");
         imprimeMedico(medEncontradoBin);
         free(medEncontradoBin);
-    } else {
+    }
+    else
+    {
         printf("Medico não encontrado.\n\n");
     }
 
@@ -194,7 +213,7 @@ int main() {
 
     salvarLog("Medico (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
-    //Busca Binária Paciente ========================================
+    // Busca Binária Paciente ========================================
     printf("\n===== Busca Binaria Paciente =====\n");
 
     printf("Digite o ID: ");
@@ -204,11 +223,14 @@ int main() {
     TMedico *pacEncontradoBin = buscarBinariaPaciente(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
-    if (pacEncontradoBin) {
+    if (pacEncontradoBin)
+    {
         printf("Paciente encontrado:\n\n");
         imprimePaciente(pacEncontradoBin);
         free(pacEncontradoBin);
-    } else {
+    }
+    else
+    {
         printf("Paciente não encontrado.\n\n");
     }
 
@@ -217,7 +239,7 @@ int main() {
 
     salvarLog("Paciente (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
-    //Busca Binária Consulta ========================================
+    // Busca Binária Consulta ========================================
     printf("\n===== Busca Binaria Consulta =====\n");
     printf("Digite o ID: ");
     scanf("%d", &cod_busca);
@@ -226,11 +248,14 @@ int main() {
     TMedico *consEncontradoBin = buscarBinariaConsulta(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
-    if (consEncontradoBin) {
+    if (consEncontradoBin)
+    {
         printf("Consulta encontrado:\n\n");
         imprimeConsulta(consEncontradoBin);
         free(consEncontradoBin);
-    } else {
+    }
+    else
+    {
         printf("Consulta não encontrado.\n\n");
     }
 
@@ -239,7 +264,7 @@ int main() {
 
     salvarLog("Consulta (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
-    //Busca Binária Exame ========================================
+    // Busca Binária Exame ========================================
     printf("\n===== Busca Binaria Exame =====\n");
     printf("Digite o ID: ");
     scanf("%d", &cod_busca);
@@ -248,11 +273,14 @@ int main() {
     TMedico *examEncontradoBin = buscarBinariaExame(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
-    if (examEncontradoBin) {
+    if (examEncontradoBin)
+    {
         printf("Exame encontrado:\n\n");
         imprimeExame(examEncontradoBin);
         free(examEncontradoBin);
-    } else {
+    }
+    else
+    {
         printf("Exame não encontrado.\n\n");
     }
 
@@ -261,8 +289,23 @@ int main() {
 
     salvarLog("Exame (Busca Binária)", comparacoes, ((double)(fim - inicio)) / CLOCKS_PER_SEC, tamBase);
 
+    // Interaçoes entre entidades ========================================
 
-    //Fechando Arquivos ========================================
+    printf("\n===== Interaçoes entre entidades =====\n");
+
+    int crm_inte, pac_inte;
+
+    printf("Digite um CRM: ");
+    scanf("%d", &crm_inte);
+
+    printf("\nDigite um ID de Paciente: ");
+    scanf("%d", &pac_inte);
+
+    agendarConsulta(medicoFile, pacienteFile, consultaFile, crm_inte, pac_inte, logFile);
+    realizarExame(pacienteFile, exameFile, 1, logFile);
+    visualizarHistoricoMedico(pacienteFile, consultaFile, exameFile, pac_inte, logFile);
+
+    // Fechando Arquivos ========================================
 
     fclose(medicoFile);
     fclose(pacienteFile);
