@@ -46,7 +46,8 @@ void imprimeConsulta(TConsulta *consulta) {
 void criarBaseConsulta(FILE *out, int tam) {
     TConsulta *consulta;
     for (int i = 0; i < tam; i++) {
-        consulta = criaConsulta(i + 1, (i + 1) * 10, (i + 1) * 100, "01/01/2022", "Consulta de Rotina");
+        int idAtual = i+1;
+        consulta = criaConsulta(idAtual, idAtual, idAtual , "01/01/2022", "Consulta de Rotina");
         salvaConsulta(consulta, out);
         free(consulta);
     }
@@ -64,7 +65,8 @@ void imprimirBaseConsulta(FILE *out) {
 void criarBaseConsultaOrdenada(FILE *out, int tam) {
     TConsulta *consulta;
     for (int i = 0; i < tam; i++) {
-        consulta = criaConsulta(i, i * 10, i * 100, "01/01/2022", "Consulta de Rotina");
+        int idAtual = i+1;
+        consulta = criaConsulta(idAtual, idAtual, idAtual, "01/01/2022", "Consulta de Rotina");
         salvaConsulta(consulta, out);
         free(consulta);
     }
