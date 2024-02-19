@@ -22,6 +22,7 @@ void salvarLog(const char *entidade, int comparacoes, double tempo, int base)
     fprintf(logFile, "Tamanho da base: %d\n\n", base);
     fprintf(logFile, "Numero de comparacoes: %d\n", comparacoes);
     fprintf(logFile, "Tempo de execucao: %lf segundos\n\n", tempo);
+    fprintf(logFile, "=============================================\n\n");
 
     fclose(logFile);
 }

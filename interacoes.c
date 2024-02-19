@@ -29,7 +29,7 @@ void agendarConsulta(FILE *medicoFile, FILE *pacienteFile, FILE *consultaFile, i
     TPaciente *pacienteSeq = buscarPaciente(pacienteFile, idPaciente, &comparacoesSeqPaciente);
     fimSeqPaciente = clock();
 
-    fprintf(logFile, "\n\nAgendar Consulta:\n");
+    fprintf(logFile, "Agendar Consulta:\n");
     fprintf(logFile, "Busca Sequencial - Médico:\n");
     fprintf(logFile, "Número de comparações: %d\n", comparacoesSeqMedico);
     fprintf(logFile, "Tempo de execução: %lf segundos\n", ((double)(fimSeqMedico - inicioSeqMedico)) / CLOCKS_PER_SEC);
@@ -37,6 +37,7 @@ void agendarConsulta(FILE *medicoFile, FILE *pacienteFile, FILE *consultaFile, i
     fprintf(logFile, "Busca Sequencial - Paciente:\n");
     fprintf(logFile, "Número de comparações: %d\n", comparacoesSeqPaciente);
     fprintf(logFile, "Tempo de execução: %lf segundos\n\n", ((double)(fimSeqPaciente - inicioSeqPaciente)) / CLOCKS_PER_SEC);
+    fprintf(logFile, "=============================================\n\n");
 
     // Restante do código da função (criar e salvar consulta, etc.)
     if (medicoSeq && pacienteSeq) {
@@ -68,7 +69,7 @@ void realizarExame(FILE *pacienteFile, FILE *exameFile, int idPaciente, FILE *lo
     TPaciente *pacienteBin = buscarBinariaPaciente(pacienteFile, idPaciente, &comparacoesBinPaciente);
     fimBinPaciente = clock();
 
-    fprintf(logFile, "\n\nRealizar Exame:\n");
+    fprintf(logFile, "Realizar Exame:\n");
     fprintf(logFile, "Busca Sequencial - Paciente:\n");
     fprintf(logFile, "Número de comparações: %d\n", comparacoesSeqPaciente);
     fprintf(logFile, "Tempo de execução: %lf segundos\n", ((double)(fimSeqPaciente - inicioSeqPaciente)) / CLOCKS_PER_SEC);
@@ -76,6 +77,7 @@ void realizarExame(FILE *pacienteFile, FILE *exameFile, int idPaciente, FILE *lo
     fprintf(logFile, "Busca Binária - Paciente:\n");
     fprintf(logFile, "Número de comparações: %d\n", comparacoesBinPaciente);
     fprintf(logFile, "Tempo de execução: %lf segundos\n\n", ((double)(fimBinPaciente - inicioBinPaciente)) / CLOCKS_PER_SEC);
+    fprintf(logFile, "=============================================\n\n");
 
     // Restante do código da função (criar e salvar exame, etc.)
     if (pacienteSeq) {
@@ -105,7 +107,7 @@ void visualizarHistoricoMedico(FILE *pacienteFile, FILE *consultaFile, FILE *exa
     TPaciente *pacienteBin = buscarBinariaPaciente(pacienteFile, idPaciente, &comparacoesBinPaciente);
     fimBinPaciente = clock();
 
-    fprintf(logFile, "\n\nVisualizar Histórico Médico:\n");
+    fprintf(logFile, "Visualizar Histórico Médico:\n");
     fprintf(logFile, "Busca Sequencial - Paciente:\n");
     fprintf(logFile, "Número de comparações: %d\n", comparacoesSeqPaciente);
     fprintf(logFile, "Tempo de execução: %lf segundos\n", ((double)(fimSeqPaciente - inicioSeqPaciente)) / CLOCKS_PER_SEC);
@@ -113,6 +115,7 @@ void visualizarHistoricoMedico(FILE *pacienteFile, FILE *consultaFile, FILE *exa
     fprintf(logFile, "Busca Binária - Paciente:\n");
     fprintf(logFile, "Número de comparações: %d\n", comparacoesBinPaciente);
     fprintf(logFile, "Tempo de execução: %lf segundos\n\n", ((double)(fimBinPaciente - inicioBinPaciente)) / CLOCKS_PER_SEC);
+    fprintf(logFile, "=============================================\n\n");
 
     // Restante do código da função (exibir histórico médico, etc.)
     if (pacienteSeq) {
