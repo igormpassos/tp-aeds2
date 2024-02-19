@@ -43,16 +43,15 @@ int main()
 
     // Criando Bases ========================================
 
-    int tamBase = 100;
+    int tamBase = 10000;
 
     criarBaseMedico(medicoFile, tamBase);
     fflush(medicoFile); // Garante que os dados sejam gravados no arquivo antes de imprimir
-    return 0;
 
     criarBasePaciente(pacienteFile, tamBase);
     fflush(pacienteFile);
 
-    criarBaseConsulta(consultaFile, medicoFile, pacienteFile, tamBase);
+    criarBaseConsulta(consultaFile, tamBase);
     fflush(consultaFile);
 
     criarBaseExame(exameFile, tamBase);
@@ -222,7 +221,7 @@ int main()
     scanf("%d", &cod_busca);
 
     inicio = clock();
-    TMedico *pacEncontradoBin = buscarBinariaPaciente(medicoFile, cod_busca, &comparacoes);
+    TPaciente *pacEncontradoBin = buscarBinariaPaciente(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
     if (pacEncontradoBin)
@@ -247,7 +246,7 @@ int main()
     scanf("%d", &cod_busca);
 
     inicio = clock();
-    TMedico *consEncontradoBin = buscarBinariaConsulta(medicoFile, cod_busca, &comparacoes);
+    TConsulta *consEncontradoBin = buscarBinariaConsulta(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
     if (consEncontradoBin)
@@ -272,7 +271,7 @@ int main()
     scanf("%d", &cod_busca);
 
     inicio = clock();
-    TMedico *examEncontradoBin = buscarBinariaExame(medicoFile, cod_busca, &comparacoes);
+    TExame *examEncontradoBin = buscarBinariaExame(medicoFile, cod_busca, &comparacoes);
     fim = clock();
 
     if (examEncontradoBin)
